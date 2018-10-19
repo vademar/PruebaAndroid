@@ -122,20 +122,87 @@
                         app:layout_constraintStart_toEndOf="@+id/Hora"
                         app:layout_constraintTop_toBottomOf="@+id/BtnFech" />
 
+                    <Button
+                        android:id="@+id/btnHor2"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/Us_Btn_Hora"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/hora2"
+                        app:layout_constraintTop_toBottomOf="@+id/btnFech2" />
+
+                    <TextView
+                        android:id="@+id/FIN"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Fin del Evento"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/Hora" />
+
+                    <TextView
+                        android:id="@+id/fecha2"
+                        android:layout_width="200dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/Us_Ev_Fecha"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/FIN" />
+
+                    <Button
+                        android:id="@+id/btnFech2"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/Us_Btn_Fecha"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/fecha2"
+                        app:layout_constraintTop_toBottomOf="@+id/FIN" />
+
+                    <TextView
+                        android:id="@+id/hora2"
+                        android:layout_width="200dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/Us_Ev_Hora"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fecha2" />
+
                     <TextView
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/Us_Ev_Des"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/BtnHor" />
+                        app:layout_constraintTop_toBottomOf="@+id/hora2" />
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/textInputLayout"
