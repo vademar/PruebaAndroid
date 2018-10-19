@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">MyEvents</string>
+
+    <!-- TODO: interfaz loguin -->
+    <string name="Login_CI">Ingrese Su CI</string>
+    <string name="Login_Pss">Ingrese Su Contraseña</string>
+    <string name="Btn_Sesion">Iniciar Sesion</string>
+    <string name="Btn_Registrar">Registrarse</string>
+
+    <!-- TODO: interfaz Formulario -->
+    <string name="F_Per">DATOS PERSONALES</string>
+    <string name="F_Nom">Ingrese Nombre(s)</string>
+    <string name="F_Ap">Ingrese Pellidos</string>
+    <string name="F_Cel">Ingrese Profesion</string>
+    <string name="F_Us">DATOS DE USUARIO</string>
+    <string name="F_Ci">Ingrese CI</string>
+    <string name="F_Ps">Ingrese Contraseña</string>
+    <string name="F_Btn_Crear">Crear Cuenta</string>
+
+    <!-- TODO: interfaz AcUsuario -->
+    <string name="title_activity_ac_usuario">AcUsuario</string>
+    <string name="tab_text_1">QR</string>
+    <string name="tab_text_2">Eventos</string>
+    <string name="tab_text_3">Chat</string>
+    <string name="tab_text_4">Crear Eventos</string>
+    <string name="action_settings">QUE ES ESTO</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="QR">este es su Codigo QR para su asistencia: </string>
+    <string name="Evento">los eventos son: </string>
+
+    <!-- TODO: usuario creacion de eventos-->
+    <string name="Us_Ev_Fot">Añadir Una Foto Al Evento</string>
+    <string name="Us_Ev_Nom">Nombre del evento: </string>
+    <string name="Us_Ev_Ini">Inicio del Evento:</string>
+    <string name="Us_Ev_Fecha">Fecha:</string>
+    <string name="Us_Btn_Fecha">Fecha</string>
+    <string name="Us_Ev_Hora">Hora:</string>
+    <string name="Us_Btn_Hora">Hora</string>
+    <string name="Us_Ev_Des">Descripción </string>
+    <string name="Us_Ev_Desc">Habla a las personas sobre el evento...</string>
+    <string name="Us_Bto_Cre">Crear Evento </string>
+
+</resources>
