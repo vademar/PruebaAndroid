@@ -7,11 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -19,9 +24,11 @@ import java.util.Calendar;
 public class UsCreaEv extends Fragment {
 
     TextView Fecha,Hora,FechaF, HoraF;
-    Button BtnFech, BtnHor, BtnFechF,BtnHorF;
+    Button BtnFech, BtnHor, BtnFechF,BtnHorF,CreaEvento;
 
     private int year,mes,dia, hora, min;
+
+    private Spinner spiner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +45,14 @@ public class UsCreaEv extends Fragment {
         HoraF = (TextView)V.findViewById(R.id.hora2);
         BtnFechF = (Button)V.findViewById(R.id.btnFech2);
         BtnHorF = (Button)V.findViewById(R.id.btnHor2);
+
+        spiner =(Spinner)V.findViewById(R.id.Spinprofesion);
+        final String [] profes = {"Medico","Estudiante","Auxiliar","Ingeniero"};
+        ArrayAdapter<String> Adaptar =new ArrayAdapter<String>(getContext(),R.layout.spinner_item_formulario,profes);
+        spiner.setAdapter(Adaptar);
+        final String selec =spiner.getSelectedItem().toString();
+
+        CreaEvento = (Button) V.findViewById(R.id.CrearEvento);
 
         BtnFech.setOnClickListener(new View.OnClickListener(){
 
@@ -115,6 +130,27 @@ public class UsCreaEv extends Fragment {
             }
         });
 
+        spiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                switch (i){
+                    case 1:
+                        Toast.makeText(getContext(),"Bien venido: "+profes[i], Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getContext(),"Bien venido: "+profes[i], Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getContext(),"Bien venido: "+profes[i], Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         return V;
     }
 }
