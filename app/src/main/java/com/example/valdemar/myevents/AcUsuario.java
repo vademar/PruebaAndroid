@@ -153,20 +153,17 @@ public class AcUsuario extends AppCompatActivity {
                     UsEvento evento=new UsEvento();
                     return evento;
                 case 2:
-                    UsChat chat=new UsChat();
-                    return chat;
-                case 3:
                     UsCreaEv crear=new UsCreaEv();
                     return crear;
             }
             return null;
         }
 
-        //aqui se controlar la habilitacion de la interfaza crear eventos
+        //aqui se controla la cantidad de ventanas
         @Override
         public int getCount() {
             // Show 3 total pages.
-            int i=4;
+            int i=3;
             return i;
         }
 

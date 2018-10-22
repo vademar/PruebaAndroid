@@ -21,8 +21,7 @@
     <string name="title_activity_ac_usuario">AcUsuario</string>
     <string name="tab_text_1">QR</string>
     <string name="tab_text_2">Eventos</string>
-    <string name="tab_text_3">Chat</string>
-    <string name="tab_text_4">Crear Eventos</string>
+    <string name="tab_text_3">Crear Eventos</string>
     <string name="action_settings">QUE ES ESTO</string>
     <string name="section_format">Hello World from section: %1$d</string>
 

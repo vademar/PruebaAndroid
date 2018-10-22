@@ -65,12 +65,9 @@
                     android:layout_width="250dp"
                     android:layout_height="19dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginStart="50dp"
                     android:layout_marginTop="20dp"
                     android:text="Simon Bolivar"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.47"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/QR_Sis" />
 
                 <TextView
@@ -89,12 +86,9 @@
                     android:layout_width="250dp"
                     android:layout_height="19dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginStart="50dp"
                     android:layout_marginTop="10dp"
                     android:text="Santisima Trinidad y Palacios"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.472"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/TVENOM" />
 
                 <TextView
@@ -113,12 +107,9 @@
                     android:layout_width="250dp"
                     android:layout_height="19dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginStart="50dp"
                     android:layout_marginTop="10dp"
                     android:text="10587369"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.472"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/TVEAPE" />
 
                 <TextView
@@ -138,13 +129,10 @@
                     android:layout_height="19dp"
                     android:layout_marginBottom="40dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginStart="50dp"
                     android:layout_marginTop="10dp"
                     android:text="Estudiante"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.479"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/TVECel"
                     app:layout_constraintVertical_bias="0.0" />
 
