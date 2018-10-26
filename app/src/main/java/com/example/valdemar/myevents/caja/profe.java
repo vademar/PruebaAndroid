@@ -1,4 +1,4 @@
-package com.example.valdemar.myevents;
+package com.example.valdemar.myevents.caja;
 
 public class profe {
     private String profesion;

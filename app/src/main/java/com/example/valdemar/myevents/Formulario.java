@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.valdemar.myevents.servidor.host;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -28,10 +29,8 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
     private EditText Nom,Ap,Ci,Pss, insti, cargos, contra;
     private Spinner spiner;
     private Context root;
-    private ArrayList<profe> Profess;
+    private ArrayList<String> profeNames;
 
-
-    ArrayList<String> profeNames;
     Button Crear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +46,6 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
         cargos = (EditText)findViewById(R.id.Cargo) ;
         contra = (EditText)findViewById(R.id.pss);
         Crear = (Button)findViewById(R.id.crear);
-
-        Profess= new ArrayList<profe>();
         profeNames = new ArrayList<String>();
 
         spiner =(Spinner)findViewById(R.id.spin);
@@ -59,17 +56,13 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
     private void getAllProfesiones() {
 
         final AsyncHttpClient profes = new AsyncHttpClient();
-        profes.get("http://192.168.1.102:4040/profesiones/", new JsonHttpResponseHandler(){
+        profes.get(host.Rest_Profesiones_Get, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     JSONArray jsonArray = response.getJSONArray("Profesion");
                     for(int i=0; i<jsonArray.length(); i++){
                         JSONObject obj = jsonArray.getJSONObject(i);
-                        /*profe s = new profe();
-                        s.setProfesion(obj.optString("profesiones"));
-                        s.setPrecio(obj.optString("precio"));
-                        Profess.add(s);*/
                         profeNames.add(obj.getString("profesiones"));
                     }
                 } catch (JSONException e) {
@@ -79,7 +72,6 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
-
     //codigo pra el boton crear usuario
     public void onClick(View v) {
         String nombre= Nom.getText().toString();
@@ -106,7 +98,6 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
             Toast.makeText(this,"Ingrese Institución o Universidad", Toast.LENGTH_SHORT).show();
         }
 
-
         if(nombre.length()!=0 && apellido.length()!=0 && cedula.length()!=0 && contraseña.length()!=0 && institucion.length()!=0){
             if(nombre.matches("[aA-zZ,ñÑ, ]*") && apellido.matches("[aA-zZ,ñÑ, ]*")){
 
@@ -120,7 +111,7 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                 param.put("ci",cedula);
                 param.put("password",pass);
 
-                Usuario.post("http://192.168.1.102:4040/registro/", param, new JsonHttpResponseHandler() {
+                Usuario.post(host.Rest_User_Post, param, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         //temporal hasta q haga una mejor decicion//

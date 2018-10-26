@@ -7,18 +7,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
+import com.example.valdemar.myevents.caja.profe;
+import com.example.valdemar.myevents.servidor.host;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class UsCreaEv extends Fragment {
@@ -27,7 +35,7 @@ public class UsCreaEv extends Fragment {
     Button BtnFech, BtnHor, BtnFechF,BtnHorF,CreaEvento;
 
     private int year,mes,dia, hora, min;
-
+    private ArrayList<profe> Profess;
     private Spinner spiner;
 
     @Override
@@ -45,12 +53,10 @@ public class UsCreaEv extends Fragment {
         HoraF = (TextView)V.findViewById(R.id.hora2);
         BtnFechF = (Button)V.findViewById(R.id.btnFech2);
         BtnHorF = (Button)V.findViewById(R.id.btnHor2);
-
+        Profess= new ArrayList<profe>();
         spiner =(Spinner)V.findViewById(R.id.Spinprofesion);
-        final String [] profes = {"Medico","Estudiante","Auxiliar","Ingeniero"};
-        ArrayAdapter<String> Adaptar =new ArrayAdapter<String>(getContext(),R.layout.spinner_item_formulario,profes);
-        spiner.setAdapter(Adaptar);
-        final String selec =spiner.getSelectedItem().toString();
+
+
 
         CreaEvento = (Button) V.findViewById(R.id.CrearEvento);
 
@@ -130,27 +136,30 @@ public class UsCreaEv extends Fragment {
             }
         });
 
-        spiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Lasprofesiones();
+        return V;
+    }
+
+    private void Lasprofesiones() {
+        final AsyncHttpClient profes = new AsyncHttpClient();
+        profes.get(host.Rest_Profesiones_Get, new JsonHttpResponseHandler(){
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-                switch (i){
-                    case 1:
-                        Toast.makeText(getContext(),"Bien venido: "+profes[i], Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        Toast.makeText(getContext(),"Bien venido: "+profes[i], Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        Toast.makeText(getContext(),"Bien venido: "+profes[i], Toast.LENGTH_SHORT).show();
-                        break;
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("Profesion");
+                    for(int i=0; i<jsonArray.length(); i++){
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        profe s = new profe();
+                        s.setProfesion(obj.optString("profesiones"));
+                        s.setPrecio(obj.optString("precio"));
+                        Profess.add(s);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                spiner.setAdapter(new ArrayAdapter<profe>(getContext(), android.R.layout.simple_spinner_dropdown_item, Profess));
             }
         });
-        return V;
     }
 }
