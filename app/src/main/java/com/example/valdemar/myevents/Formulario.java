@@ -11,12 +11,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
 
 public class Formulario extends AppCompatActivity implements View.OnClickListener{
@@ -24,6 +28,10 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
     private EditText Nom,Ap,Ci,Pss, insti, cargos, contra;
     private Spinner spiner;
     private Context root;
+    private ArrayList<profe> Profess;
+
+
+    ArrayList<String> profeNames;
     Button Crear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +43,41 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
         Ap =(EditText)findViewById(R.id.ape);
         Ci =(EditText)findViewById(R.id.ci);
         Pss =(EditText)findViewById(R.id.pss);
-        spiner =(Spinner)findViewById(R.id.spin);
         insti =(EditText)findViewById(R.id.Ins_Uni);
         cargos = (EditText)findViewById(R.id.Cargo) ;
         contra = (EditText)findViewById(R.id.pss);
         Crear = (Button)findViewById(R.id.crear);
 
-        String [] profe = {"Medico","Estudiante","Auxiliar","Ingeniero"};
+        Profess= new ArrayList<profe>();
+        profeNames = new ArrayList<String>();
 
-        ArrayAdapter <String> Adaptar =new ArrayAdapter<String>(this,R.layout.spinner_item_formulario,profe);
-        spiner.setAdapter(Adaptar);
+        spiner =(Spinner)findViewById(R.id.spin);
         Crear.setOnClickListener(this);
+        getAllProfesiones();
+    }
+
+    private void getAllProfesiones() {
+
+        final AsyncHttpClient profes = new AsyncHttpClient();
+        profes.get("http://192.168.1.102:4040/profesiones/", new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("Profesion");
+                    for(int i=0; i<jsonArray.length(); i++){
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        /*profe s = new profe();
+                        s.setProfesion(obj.optString("profesiones"));
+                        s.setPrecio(obj.optString("precio"));
+                        Profess.add(s);*/
+                        profeNames.add(obj.getString("profesiones"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                spiner.setAdapter(new ArrayAdapter<String>(root, android.R.layout.simple_spinner_dropdown_item, profeNames));
+            }
+        });
     }
 
     //codigo pra el boton crear usuario
@@ -57,7 +89,6 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
         String institucion = insti.getText().toString();
         String cargo =cargos.getText().toString();
         String pass = contra.getText().toString();
-        String selec =spiner.getSelectedItem().toString();
 
         if (nombre.length()== 0) {
             Toast.makeText(this,"Ingrese Nombres", Toast.LENGTH_SHORT).show();
@@ -74,9 +105,7 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
         if (institucion.length()== 0) {
             Toast.makeText(this,"Ingrese Institución o Universidad", Toast.LENGTH_SHORT).show();
         }
-        if(selec.length()!=0){
-            Toast.makeText(this,"Bien venido: "+selec, Toast.LENGTH_SHORT).show();
-        }
+
 
         if(nombre.length()!=0 && apellido.length()!=0 && cedula.length()!=0 && contraseña.length()!=0 && institucion.length()!=0){
             if(nombre.matches("[aA-zZ,ñÑ, ]*") && apellido.matches("[aA-zZ,ñÑ, ]*")){
@@ -85,6 +114,7 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                 RequestParams param = new RequestParams();
                 param.put("nombre",nombre);
                 param.put("apellido",apellido);
+                param.put("profesion", spiner.getSelectedItem().toString());
                 param.put("institucion", institucion);
                 param.put("cargo",cargo);
                 param.put("ci",cedula);
@@ -93,6 +123,7 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                 Usuario.post("http://192.168.1.102:4040/registro/", param, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        //temporal hasta q haga una mejor decicion//
                         Intent inte = new Intent(root,AcUsuario.class);
                         root.startActivity(inte);
                     }
