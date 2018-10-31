@@ -56,7 +56,7 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
     private void getAllProfesiones() {
 
         final AsyncHttpClient profes = new AsyncHttpClient();
-        profes.get(host.Rest_Profesiones_Get, new JsonHttpResponseHandler(){
+        profes.get(host.Rest_Profesiones, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -111,10 +111,10 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                 param.put("ci",cedula);
                 param.put("password",pass);
 
-                Usuario.post(host.Rest_User_Post, param, new JsonHttpResponseHandler() {
+                Usuario.post(host.Rest_Registro, param, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        //temporal hasta q haga una mejor decicion//
+                        //temporal hasta q haga una mejor//
                         Intent inte = new Intent(root,AcUsuario.class);
                         root.startActivity(inte);
                     }

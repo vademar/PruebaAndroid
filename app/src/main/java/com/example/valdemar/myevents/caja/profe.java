@@ -26,13 +26,8 @@ public class profe {
         this.precio = precio;
     }
 
-    /*@Override
-    public String toString() {
-        return profesion;
-    }*/
-
     @Override
     public String toString() {
-        return profesion +" costo: "+ precio;
+        return profesion +"  :  "+ precio+" Bs";
     }
 }
