@@ -2,9 +2,12 @@ package com.example.valdemar.myevents;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +39,16 @@ import cz.msebera.android.httpclient.Header;
 
 public class UsCreaEv extends Fragment implements View.OnClickListener {
 
-    TextView Fecha,Hora,FechaF,HoraF, Invi;
-    EditText Nombre, Descripcion;
-    Button BtnFech, BtnHor, BtnFechF,BtnHorF,CreaEvento;
+    private TextView Fecha,Hora,FechaF,HoraF, ProfeSelec;
+    private EditText Nombre, Descripcion;
+    private Button BtnFech, BtnHor, BtnFechF,BtnHorF,CreaEvento, mOrder;
 
     private int year,mes,dia, hora, min;
     private ArrayList<profe> Profess;
-    private Spinner spiner;
+    private String[] ListProfes;
+    private ArrayList<Integer> lasprofesiones = new ArrayList<>();
+    private boolean[] CheckProfes;
+
     private String nomb, fechaI,horaI,fechaF,horaF, Desc,Pro;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,11 +66,11 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
         BtnFechF = (Button)V.findViewById(R.id.btnFech2);
         BtnHorF = (Button)V.findViewById(R.id.btnHor2);
         Profess= new ArrayList<profe>();
-        spiner =(Spinner)V.findViewById(R.id.Spinprofesion);
+        mOrder = (Button)V.findViewById(R.id.mOrder);
 
         Nombre=(EditText)V.findViewById(R.id.NomEv);
         Descripcion= (EditText)V.findViewById(R.id.Descrip);
-        Invi=(TextView)V.findViewById(R.id.txtprofe);
+        ProfeSelec=(TextView)V.findViewById(R.id.txtprofe);
 
         CreaEvento = (Button) V.findViewById(R.id.CrearEvento);
 
@@ -149,33 +155,65 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
         });
 
         Lasprofesiones();
-        LlenarTxt();
-        CreaEvento.setOnClickListener(this);
-        return V;
-    }
 
-    private void LlenarTxt() {
-        spiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            String cadena="";
+        mOrder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-                String item = parent.getItemAtPosition(i).toString();
-                String X=parent.getItemAtPosition(0).toString();
-                if(item.compareTo(X)==0&&cadena.length()==0){
-                    item="";
-                    cadena= cadena+item;
-                }else{
-                    cadena = cadena +item;
-                    cadena = cadena +"\n";
-                }
-                Invi.setText(cadena);
-            }
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+                mBuilder.setTitle("Elija Los Participantes");
+                mBuilder.setMultiChoiceItems(ListProfes, CheckProfes, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int position, boolean isChecked) {
+                        if(isChecked){
+                            if(!lasprofesiones.contains(position)){
+                                lasprofesiones.add(position);
+                            }
+                        }else if(lasprofesiones.contains(position)){
+                            lasprofesiones.remove((Integer) position);
+                        }
+                    }
+                });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                mBuilder.setCancelable(false);
+                mBuilder.setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String item="";
+                        for(int i=0; i<lasprofesiones.size();i++){
+                            item = item + ListProfes[lasprofesiones.get(i)];
+                            if(i!=lasprofesiones.size()-1){
+                                item =  item + "\n";
+                            }
+                        }
+                        ProfeSelec.setText(item);
+                    }
+                });
 
+                mBuilder.setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                mBuilder.setNeutralButton("Borrar Todo", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        for(int i=0; i<CheckProfes.length;i++){
+                            CheckProfes[i]=false;
+                            lasprofesiones.clear();
+                            ProfeSelec.setText("");
+                        }
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
             }
         });
+
+        CreaEvento.setOnClickListener(this);
+        return V;
     }
 
     private void Lasprofesiones() {
@@ -195,7 +233,11 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                spiner.setAdapter(new ArrayAdapter<profe>(getContext(),android.R.layout.simple_spinner_dropdown_item, Profess));
+                ListProfes = new String[Profess.size()];
+                for (int i = 0; i < Profess.size(); i++) {
+                    ListProfes [i] = String.valueOf(Profess.get(i));
+                }
+                CheckProfes = new boolean[ListProfes.length];
             }
         });
     }
@@ -204,7 +246,7 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         nomb= Nombre.getText().toString();
         Desc = Descripcion.getText().toString();
-        Pro = Invi.getText().toString();
+        Pro = ProfeSelec.getText().toString();
         if (nomb.length()== 0) {
             Toast.makeText(getContext(),"Ingrese Nombre Para Evento", Toast.LENGTH_SHORT).show();
         }
