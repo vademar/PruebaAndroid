@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <TextView
+        android:id="@+id/Vnombre"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/VF"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Fecha:"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Descrip"
+        app:layout_constraintTop_toBottomOf="@+id/Vnombre" />
+
+    <TextView
+        android:id="@+id/VfechaI"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        app:layout_constraintStart_toEndOf="@+id/Descrip"
+        app:layout_constraintTop_toBottomOf="@+id/VF" />
+
+    <TextView
+        android:id="@+id/Descrip"
+        android:layout_width="120dp"
+        android:layout_height="170dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Vnombre"
+        app:layout_constraintVertical_bias="0.266" />
+
+    <TextView
+        android:id="@+id/VH"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Horario:"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Descrip"
+        app:layout_constraintTop_toBottomOf="@+id/VfechaI" />
+
+    <TextView
+        android:id="@+id/VCostos"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Descrip"
+        app:layout_constraintTop_toBottomOf="@+id/VC" />
+
+    <TextView
+        android:id="@+id/VhoraI"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        app:layout_constraintStart_toEndOf="@+id/Descrip"
+        app:layout_constraintTop_toBottomOf="@+id/VH" />
+
+    <TextView
+        android:id="@+id/VC"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Costos:"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Descrip"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="A"
+        app:layout_constraintEnd_toStartOf="@+id/VfechaF"
+        app:layout_constraintStart_toEndOf="@+id/VfechaI"
+        app:layout_constraintTop_toBottomOf="@+id/VF" />
+
+    <TextView
+        android:id="@+id/VfechaF"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VF" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="A"
+        app:layout_constraintEnd_toStartOf="@+id/VhoraF"
+        app:layout_constraintStart_toEndOf="@+id/VhoraI"
+        app:layout_constraintTop_toBottomOf="@+id/VH" />
+
+    <TextView
+        android:id="@+id/VhoraF"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VH" />
+</android.support.constraint.ConstraintLayout>
