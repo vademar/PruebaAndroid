@@ -277,7 +277,7 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
             param.put("horaIni",horaI);
             param.put("fechaFin",fechaF);
             param.put("horaFin",horaF);
-            param.put("decripcion",Desc);
+            param.put("descripcion",Desc);
             param.put("invitados",Pro);
 
             Usuario.post(host.Rest_Eventi, param, new JsonHttpResponseHandler() {
