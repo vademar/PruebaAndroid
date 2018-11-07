@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,12 +37,10 @@ public class UsEvento extends Fragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         V = inflater.inflate(R.layout.fragment_us_evento, container, false);
-
         LISTINFO = new ArrayList<even>();
         Elrelleno();
         return V;
     }
-
     private void Elrelleno() {
         AsyncHttpClient profes = new AsyncHttpClient();
         profes.get(host.Rest_Eventi, new JsonHttpResponseHandler(){
@@ -64,7 +64,7 @@ public class UsEvento extends Fragment {
                     ADAPTER= new MyAdapter(getContext(),LISTINFO);
                     LIST =(ListView)V.findViewById(R.id.listviewlayout);
                     LIST.setAdapter(ADAPTER);
-                    } catch (JSONException e) {
+                }catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
