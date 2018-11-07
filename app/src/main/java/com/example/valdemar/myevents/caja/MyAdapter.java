@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.valdemar.myevents.R;
@@ -15,11 +14,6 @@ import java.util.ArrayList;
 public class MyAdapter extends BaseAdapter {
     private Context CONTEXT;
     private ArrayList<even> LIST;
-    private String[] User;
-    private String Nomb;
-    private Button regis;
-    private int Posi;
-    private ArrayList<String> profeNames;
     public MyAdapter(Context contex, ArrayList<even>list){
         this.CONTEXT = contex;
         this.LIST = list;
@@ -41,12 +35,11 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        Posi= position;
         if(convertView == null){
             LayoutInflater inflate =(LayoutInflater) this.CONTEXT.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflate.inflate(R.layout.us_item_evento,null);
         }
-        final TextView nombre = (TextView)convertView.findViewById(R.id.Vnombre);
+        TextView nombre = (TextView)convertView.findViewById(R.id.Vnombre);
         TextView descri = (TextView)convertView.findViewById(R.id.Descrip);
         TextView fechaI = (TextView)convertView.findViewById(R.id.VfechaI);
         TextView fechaF = (TextView)convertView.findViewById(R.id.VfechaF);
@@ -61,8 +54,6 @@ public class MyAdapter extends BaseAdapter {
         horaI.setText(this.LIST.get(position).getHorI());
         horaF.setText(this.LIST.get(position).getHorF());
         costo.setText(this.LIST.get(position).getCost());
-
-        Nomb= nombre.getText().toString();
         return convertView;
     }
 }

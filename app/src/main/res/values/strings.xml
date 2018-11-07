@@ -41,5 +41,6 @@
     <string name="Us_Ev_Desc">Habla a las personas sobre el evento...</string>
     <string name="Us_Bto_Cre">Crear Evento </string>
     <string name="textview">TextView</string>
+    <string name="title_activity_detall_evento">DetallEvento</string>
 
 </resources>
