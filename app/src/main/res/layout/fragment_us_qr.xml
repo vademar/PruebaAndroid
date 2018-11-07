@@ -54,7 +54,7 @@
                     android:id="@+id/TVENOM"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:text="Simon Bolivar"
@@ -89,7 +89,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/TVENOM" />
 
                 <TextView
-                    android:id="@+id/tvcel"
+                    android:id="@+id/tvci"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -101,7 +101,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/TVEAPE" />
 
                 <TextView
-                    android:id="@+id/TVECel"
+                    android:id="@+id/TVECI"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -110,11 +110,11 @@
                     android:text="10587369"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tvcel"
+                    app:layout_constraintStart_toEndOf="@+id/tvci"
                     app:layout_constraintTop_toBottomOf="@+id/TVEAPE" />
 
                 <TextView
-                    android:id="@+id/TVEPRO"
+                    android:id="@+id/tvprof"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -123,10 +123,10 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TVECel" />
+                    app:layout_constraintTop_toBottomOf="@+id/TVECI" />
 
                 <TextView
-                    android:id="@+id/tveprof"
+                    android:id="@+id/TVEPROF"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -135,11 +135,11 @@
                     android:text="Estudiante"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/TVEPRO"
-                    app:layout_constraintTop_toBottomOf="@+id/TVECel" />
+                    app:layout_constraintStart_toEndOf="@+id/tvprof"
+                    app:layout_constraintTop_toBottomOf="@+id/TVECI" />
 
                 <TextView
-                    android:id="@+id/TVEINS"
+                    android:id="@+id/tvins"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -148,10 +148,10 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tveprof" />
+                    app:layout_constraintTop_toBottomOf="@+id/TVEPROF" />
 
                 <TextView
-                    android:id="@+id/TVECAR"
+                    android:id="@+id/tvcar"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -160,10 +160,10 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tveins" />
+                    app:layout_constraintTop_toBottomOf="@+id/TVEINS" />
 
                 <TextView
-                    android:id="@+id/tveins"
+                    android:id="@+id/TVEINS"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -172,11 +172,11 @@
                     android:text="Universidad Autonoma Tomas Frias"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/TVEINS"
-                    app:layout_constraintTop_toBottomOf="@+id/tveprof" />
+                    app:layout_constraintStart_toEndOf="@+id/tvins"
+                    app:layout_constraintTop_toBottomOf="@+id/TVEPROF" />
 
                 <TextView
-                    android:id="@+id/tvecar"
+                    android:id="@+id/TVECAR"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="80dp"
@@ -188,29 +188,33 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/TVECAR"
-                    app:layout_constraintTop_toBottomOf="@+id/tveins" />
+                    app:layout_constraintStart_toEndOf="@+id/tvcar"
+                    app:layout_constraintTop_toBottomOf="@+id/TVEINS" />
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    android:layout_width="163dp"
-                    android:layout_height="154dp"
+                    android:layout_width="240dp"
+                    android:layout_height="240dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.209"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/TVQr" />
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="168dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Button"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="200dp"
+                    android:text="Mi QR"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvecar" />
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
+                    app:layout_constraintTop_toBottomOf="@+id/TVQr" />
 
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
