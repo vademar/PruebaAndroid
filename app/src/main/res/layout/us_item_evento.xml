@@ -9,10 +9,12 @@
         android:id="@+id/Vnombre"
         android:layout_width="219dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:textAlignment="center"
         android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -150,16 +152,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/VH" />
 
-    <Button
-        android:id="@+id/party"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_marginStart="5dp"
-        android:enabled="true"
-        android:text="Participar"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.939"
-        app:layout_constraintStart_toEndOf="@+id/Vnombre"
-        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

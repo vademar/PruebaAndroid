@@ -1,27 +1,16 @@
 package com.example.valdemar.myevents.caja;
 
 import android.content.Context;
-import android.icu.text.MessagePattern;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.valdemar.myevents.R;
-import com.example.valdemar.myevents.servidor.host;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import cz.msebera.android.httpclient.Header;
 
 public class MyAdapter extends BaseAdapter {
     private Context CONTEXT;
@@ -74,30 +63,6 @@ public class MyAdapter extends BaseAdapter {
         costo.setText(this.LIST.get(position).getCost());
 
         Nomb= nombre.getText().toString();
-        regis = (Button)convertView.findViewById(R.id.party);
-        regis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*final AsyncHttpClient profes = new AsyncHttpClient();
-                profes.get(host.Rest_Registro, new JsonHttpResponseHandler(){
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("mostrar");
-                            for(int i=0; i<jsonArray.length(); i++){
-                                JSONObject obj = jsonArray.getJSONObject(i);
-                                profeNames.add(obj.getString("nombre"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });*/
-                Toast.makeText(CONTEXT, "Registrado en evento: "+Nomb+" position : "+position, Toast.LENGTH_SHORT).show();
-                regis.setEnabled(false);
-            }
-        });
-
         return convertView;
     }
 }
