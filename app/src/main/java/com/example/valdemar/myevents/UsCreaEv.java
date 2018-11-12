@@ -1,22 +1,23 @@
 package com.example.valdemar.myevents;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -36,7 +37,6 @@ import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
 
-
 public class UsCreaEv extends Fragment implements View.OnClickListener {
 
     private TextView Fecha,Hora,FechaF,HoraF, ProfeSelec;
@@ -48,6 +48,10 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
     private String[] ListProfes;
     private ArrayList<Integer> lasprofesiones = new ArrayList<>();
     private boolean[] CheckProfes;
+
+    private final static String CHANNEL_ID ="NOTIFICACION";
+    private static final int NOTIFICACION_id = 0;
+
 
     private String nomb, fechaI,horaI,fechaF,horaF, Desc,Pro;
     @Override
@@ -247,6 +251,33 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
         nomb= Nombre.getText().toString();
         Desc = Descripcion.getText().toString();
         Pro = ProfeSelec.getText().toString();
+        Novacios();
+
+        if(nomb.length()!=0 && fechaI!=null && horaI!= null && fechaF!= null && horaF!= null && Desc.length()!=0){
+            AsyncHttpClient Usuario = new AsyncHttpClient();
+            RequestParams param = new RequestParams();
+            param.put("nombre",nomb);
+            param.put("fechaIni",fechaI);
+            param.put("horaIni",horaI);
+            param.put("fechaFin",fechaF);
+            param.put("horaFin",horaF);
+            param.put("descripcion",Desc);
+            param.put("invitados",Pro);
+
+            Usuario.post(host.Rest_Eventi, param, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //temporal hasta q haga una mejor//
+                    Intent inte = new Intent(getContext(),AcUsuario.class);
+                    getContext().startActivity(inte);
+                }
+            });
+            notificacion();
+            Toast.makeText(getContext(),"El Evento Se Esta Creando", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void Novacios() {
         if (nomb.length()== 0) {
             Toast.makeText(getContext(),"Ingrese Nombre Para Evento", Toast.LENGTH_SHORT).show();
         }
@@ -268,27 +299,30 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
         if(Pro.length()==0){
             Toast.makeText(getContext(),"Este Campo Puede Estar Vacio", Toast.LENGTH_SHORT).show();
         }
+    }
 
-        if(nomb.length()!=0 && fechaI!=null && horaI!= null && fechaF!= null && horaF!= null && Desc.length()!=0){
-            AsyncHttpClient Usuario = new AsyncHttpClient();
-            RequestParams param = new RequestParams();
-            param.put("nombre",nomb);
-            param.put("fechaIni",fechaI);
-            param.put("horaIni",horaI);
-            param.put("fechaFin",fechaF);
-            param.put("horaFin",horaF);
-            param.put("descripcion",Desc);
-            param.put("invitados",Pro);
-
-            Usuario.post(host.Rest_Eventi, param, new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    //temporal hasta q haga una mejor//
-                    Intent inte = new Intent(getContext(),AcUsuario.class);
-                    getContext().startActivity(inte);
-                }
-            });
-            Toast.makeText(getContext(),"El Evento Se Esta Creando", Toast.LENGTH_SHORT).show();
-        }
+    private void notificacion() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.iconsedes);
+        builder.setContentTitle("Nuevo Evento Creado");
+        builder.setContentText(nomb);
+        builder.setColor(Color.BLACK);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setLights(Color.MAGENTA,1000,1000);
+        builder.setVibrate(new long[]{1000,1000,1000,1000,1000,1000,1000});
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+        builder.setAutoCancel(true);
+        Intent inten = new Intent(getContext(),DetallEvento.class);
+        inten.putExtra("nom",nomb);
+        inten.putExtra("fei",fechaI);
+        inten.putExtra("fef",fechaF);
+        inten.putExtra("hoi",horaI);
+        inten.putExtra("hof",horaF);
+        inten.putExtra("des",Desc);
+        inten.putExtra("cos",Pro);
+        PendingIntent pend = PendingIntent.getActivity(getContext(),0, inten,PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pend);
+        NotificationManager NmangerC = (NotificationManager)getContext().getSystemService(getContext().NOTIFICATION_SERVICE);
+        NmangerC.notify(NOTIFICACION_id,builder.build());
     }
 }

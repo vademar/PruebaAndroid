@@ -2,8 +2,8 @@ package com.example.valdemar.myevents;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,14 +11,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.example.valdemar.myevents.servidor.host;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -115,8 +115,24 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         //temporal hasta q haga una mejor//
-                        Intent inte = new Intent(root,AcUsuario.class);
-                        root.startActivity(inte);
+                        try {
+                            Intent inte = new Intent(root,AcUsuario.class);
+                            root.startActivity(inte);
+                            Toast.makeText(root, response.getString("Registrado Con exito"), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(root, "entro?", Toast.LENGTH_SHORT).show();
+                    }
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        try {
+                            String msn = errorResponse.getString("msn");
+                            Toast.makeText(root,"El CI ya existe ",Toast.LENGTH_SHORT).show();
+                            Intent inte = new Intent(root,Formulario.class);
+                            root.startActivity(inte);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
                 finish();
@@ -124,4 +140,5 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                 Toast.makeText(this,"Solo Se Admiten Letras En Este Campo", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
