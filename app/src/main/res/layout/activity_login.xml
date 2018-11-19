@@ -70,7 +70,7 @@
                 android:id="@+id/Sesion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="InicioSesion"
+                android:onClick="logeeo"
                 android:text="@string/Btn_Sesion" />
 
             <Button

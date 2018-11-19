@@ -91,7 +91,7 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
                 DatePickerDialog Ponerfecha = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        Fecha.setText(dayOfMonth+"/"+month+"/"+year);
+                        Fecha.setText(dayOfMonth+"/"+(month+1)+"/"+year);
                         fechaI=Fecha.getText().toString();
                     }
                 },year,mes,dia);
@@ -131,7 +131,7 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
                 DatePickerDialog Ponfecha = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        FechaF.setText(dayOfMonth+"/"+month+"/"+year);
+                        FechaF.setText(dayOfMonth+"/"+(month+1)+"/"+year);
                         fechaF=FechaF.getText().toString();
                     }
                 },year,mes,dia);

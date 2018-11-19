@@ -1,5 +1,6 @@
 package com.example.valdemar.myevents;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,18 +8,74 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.valdemar.myevents.caja.MyAdapter;
+import com.example.valdemar.myevents.caja.even;
+import com.example.valdemar.myevents.caja.profe;
+import com.example.valdemar.myevents.servidor.host;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
 public class login extends AppCompatActivity {
 
     private EditText Ci,Pss;
-
+    private Context root;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        root = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         Ci =(EditText)findViewById(R.id.L_ci);
         Pss =(EditText)findViewById(R.id.L_pss);
     }
+    public void logeeo(View view){
+        String CI= Ci.getText().toString();
+        String PSS= Pss.getText().toString();
+
+        AsyncHttpClient logue = new AsyncHttpClient();
+        logue.get(host.Rest_login+CI+"="+PSS, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONObject Login = response.getJSONObject("usuarios");
+                    //JSONObject token = response.getJSONObject("token");
+                        /*
+                        String signupDate= Login.optString("signupDate");
+                        String id = obj.optString("id");
+                        String nombre = Login.optString("nombre");
+                        String apellido = obj.optString("apellido");
+                        String ci = obj.optString("ci");
+                        String profesion = obj.optString("profesion");
+                        String institucion = obj.optString("institucion");
+                        String cargo = obj.optString("cargo");
+                        String password = obj.optString("password");*/
+                        Toast.makeText(getApplicationContext(),"Welcome", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(root, AcUsuario.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"En mi token", Toast.LENGTH_SHORT).show();
+                    //break;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)  {
+                Toast toast1 = Toast.makeText(getApplicationContext(), "verify your emil or password", Toast.LENGTH_SHORT);
+                toast1.show();
+            }
+        });
+    }
+
+
+
 
     public void InicioSesion(View view){
 
@@ -39,13 +96,13 @@ public class login extends AppCompatActivity {
                 Intent usuarios = new Intent(this,AcUsuario.class);
                 startActivity(usuarios);
                 finish();
+
             }else
                 Toast.makeText(this, "Cedula De Identidad Incorrecta", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     public void AlFormulario(View view){
         Intent formulario = new Intent(this,Formulario.class);
