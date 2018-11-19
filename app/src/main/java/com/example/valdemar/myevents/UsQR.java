@@ -1,5 +1,6 @@
 package com.example.valdemar.myevents;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -40,9 +41,12 @@ public class UsQR extends Fragment {
 
         CREA = (Button)V.findViewById(R.id.button);
         IMG = (ImageView)V.findViewById(R.id.imageView3);
+
+
         CREA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LlenarDatos();
                 nomb = NOMB.getText().toString();
                 apel = APEL.getText().toString();
                 cedu = CEDU.getText().toString();
@@ -69,7 +73,16 @@ public class UsQR extends Fragment {
         return  V;
     }
     private void LlenarDatos() {
-        Toast.makeText(getContext(),"En la Funcion ", Toast.LENGTH_SHORT).show();
+        Intent inte = getActivity().getIntent();
+        Intent Delogueo = getActivity().getIntent();
+        Bundle B = getActivity().getIntent().getExtras();
+        if (B != null){
+            NOMB.setText(B.getString("nom"));
+            APEL.setText(B.getString("ape"));
+            CEDU.setText(B.getString("ced"));
+            CARG.setText(B.getString("car"));
+            INST.setText(B.getString("ins"));
+            PROF.setText(B.getString("pro"));
+        }
     }
-
 }

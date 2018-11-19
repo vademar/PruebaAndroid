@@ -30,7 +30,7 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
     private Spinner spiner;
     private Context root;
     private ArrayList<String> profeNames;
-
+    private String nombre,apellido,cedula,contraseña,institucion,cargo;
     Button Crear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
         Nom =(EditText)findViewById(R.id.nom);
         Ap =(EditText)findViewById(R.id.ape);
         Ci =(EditText)findViewById(R.id.ci);
-        Pss =(EditText)findViewById(R.id.pss);
         insti =(EditText)findViewById(R.id.Ins_Uni);
         cargos = (EditText)findViewById(R.id.Cargo) ;
         contra = (EditText)findViewById(R.id.pss);
@@ -74,13 +73,12 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
     }
     //codigo pra el boton crear usuario
     public void onClick(View v) {
-        String nombre= Nom.getText().toString();
-        String apellido=Ap.getText().toString();
-        String cedula= Ci.getText().toString();
-        String contraseña= Pss.getText().toString();
-        String institucion = insti.getText().toString();
-        String cargo =cargos.getText().toString();
-        String pass = contra.getText().toString();
+        nombre= Nom.getText().toString();
+        apellido=Ap.getText().toString();
+        cedula= Ci.getText().toString();
+        contraseña= contra.getText().toString();
+        institucion = insti.getText().toString();
+        cargo =cargos.getText().toString();
 
         if (nombre.length()== 0) {
             Toast.makeText(this,"Ingrese Nombres", Toast.LENGTH_SHORT).show();
@@ -109,7 +107,7 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                 param.put("institucion", institucion);
                 param.put("cargo",cargo);
                 param.put("ci",cedula);
-                param.put("password",pass);
+                param.put("password",contraseña);
 
                 Usuario.post(host.Rest_Registro, param, new JsonHttpResponseHandler() {
                     @Override
@@ -117,6 +115,12 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                         //temporal hasta q haga una mejor//
                         try {
                             Intent inte = new Intent(root,AcUsuario.class);
+                            inte.putExtra("nom",nombre);
+                            inte.putExtra("ape",apellido);
+                            inte.putExtra("ced",cedula);
+                            inte.putExtra("ins",institucion);
+                            inte.putExtra("car",cargo);
+                            inte.putExtra("pro",spiner.getSelectedItem().toString());
                             root.startActivity(inte);
                             Toast.makeText(root, response.getString("Registrado Con exito"), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {

@@ -46,22 +46,26 @@ public class login extends AppCompatActivity {
                 try {
                     JSONObject Login = response.getJSONObject("usuarios");
                     //JSONObject token = response.getJSONObject("token");
-                        /*
-                        String signupDate= Login.optString("signupDate");
-                        String id = obj.optString("id");
-                        String nombre = Login.optString("nombre");
-                        String apellido = obj.optString("apellido");
-                        String ci = obj.optString("ci");
-                        String profesion = obj.optString("profesion");
-                        String institucion = obj.optString("institucion");
-                        String cargo = obj.optString("cargo");
-                        String password = obj.optString("password");*/
-                        Toast.makeText(getApplicationContext(),"Welcome", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(root, AcUsuario.class);
-                        startActivity(intent);
-                        Toast.makeText(getApplicationContext(),"En mi token", Toast.LENGTH_SHORT).show();
-                    //break;
 
+                        //String signupDate= Login.optString("signupDate");
+                        //String id = Login.optString("id");
+                        String nombre = Login.optString("nombre");
+                        String apellido = Login.optString("apellido");
+                        String ci = Login.optString("ci");
+                        String profesion = Login.optString("profesion");
+                        String institucion = Login.optString("institucion");
+                        String cargo = Login.optString("cargo");
+                        //String password = Login.optString("password");
+                        Toast.makeText(getApplicationContext(),"Welcome: "+nombre, Toast.LENGTH_SHORT).show();
+                        Intent Delogueo = new Intent(root, AcUsuario.class);
+                        Delogueo.putExtra("nom",nombre);
+                        Delogueo.putExtra("ape",apellido);
+                        Delogueo.putExtra("ced",ci);
+                        Delogueo.putExtra("pro",profesion);
+                        Delogueo.putExtra("ins",institucion);
+                        Delogueo.putExtra("car",cargo);
+                        startActivity(Delogueo);
+                        finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
