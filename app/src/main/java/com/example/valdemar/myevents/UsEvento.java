@@ -30,6 +30,7 @@ public class UsEvento extends Fragment implements AdapterView.OnItemClickListene
     private View V;
     private ArrayList<even> LISTINFO;
     private MyAdapter ADAPTER;
+    private String Tnom,Tape,Tced,Tpro,Tins,Tcar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class UsEvento extends Fragment implements AdapterView.OnItemClickListene
         LISTINFO = new ArrayList<even>();
         LIST =(ListView)V.findViewById(R.id.listviewlayout);
         Elrelleno();
+        DataUser();
         LIST.setOnItemClickListener(this);
         return V;
     }
@@ -61,7 +63,6 @@ public class UsEvento extends Fragment implements AdapterView.OnItemClickListene
                         even evento = new even(nom,fechi,hori,fechf,horf,des,cos);
                         LISTINFO.add(evento);
                     }
-
                     ADAPTER= new MyAdapter(getContext(),LISTINFO);
                     LIST.setAdapter(ADAPTER);
                 }catch (JSONException e) {
@@ -71,6 +72,20 @@ public class UsEvento extends Fragment implements AdapterView.OnItemClickListene
         });
     }
 
+    private void DataUser(){
+        Intent inte = getActivity().getIntent();
+        Intent Delogueo = getActivity().getIntent();
+        Intent integ = getActivity().getIntent();
+        Bundle A = getActivity().getIntent().getExtras();
+        if (A != null){
+            Tnom = A.getString("nom");
+            Tape = A.getString("ape");
+            Tced = A.getString("ced");
+            Tcar = A.getString("car");
+            Tins = A.getString("ins");
+            Tpro = A.getString("pro");
+        }
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String NOM = this.LISTINFO.get(position).getNomb();
@@ -89,6 +104,12 @@ public class UsEvento extends Fragment implements AdapterView.OnItemClickListene
         detalle.putExtra("hof",HORF);
         detalle.putExtra("des",DES);
         detalle.putExtra("cos",COS);
+        detalle.putExtra("Tnom",Tnom);
+        detalle.putExtra("Tape",Tape);
+        detalle.putExtra("Tced",Tced);
+        detalle.putExtra("Tcar",Tcar);
+        detalle.putExtra("Tins",Tins);
+        detalle.putExtra("Tpro",Tpro);
         this.startActivity(detalle);
     }
 }

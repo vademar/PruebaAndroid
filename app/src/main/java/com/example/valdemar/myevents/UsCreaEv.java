@@ -54,6 +54,7 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
 
 
     private String nomb, fechaI,horaI,fechaF,horaF, Desc,Pro;
+    private String Tnom,Tape,Tced,Tpro,Tins,Tcar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -267,13 +268,29 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
             Usuario.post(host.Rest_Eventi, param, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    //temporal hasta q haga una mejor//
-                    Intent inte = new Intent(getContext(),AcUsuario.class);
-                    getContext().startActivity(inte);
+                    Trafico();
+                    Intent integ = new Intent(getContext(),AcUsuario.class);
+                    integ.putExtra("nom",Tnom);
+                    integ.putExtra("ape",Tape);
+                    integ.putExtra("ced",Tced);
+                    integ.putExtra("ins",Tins);
+                    integ.putExtra("car",Tcar);
+                    integ.putExtra("pro",Tpro);
+                    getContext().startActivity(integ);
+                    getActivity().finish();
+                    Toast.makeText(getContext(),"El Evento Se Esta Creando", Toast.LENGTH_SHORT).show();
+                    notificacion();
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    try {
+                        String msn = errorResponse.getString("msn");
+                        Toast.makeText(getContext(),"lo Sentimos! "+msn,Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
-            notificacion();
-            Toast.makeText(getContext(),"El Evento Se Esta Creando", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -324,5 +341,20 @@ public class UsCreaEv extends Fragment implements View.OnClickListener {
         builder.setContentIntent(pend);
         NotificationManager NmangerC = (NotificationManager)getContext().getSystemService(getContext().NOTIFICATION_SERVICE);
         NmangerC.notify(NOTIFICACION_id,builder.build());
+    }
+
+    private void Trafico(){
+        Intent inte = getActivity().getIntent();
+        Intent Delogueo = getActivity().getIntent();
+        Bundle B = getActivity().getIntent().getExtras();
+        if (B != null){
+            Tnom=B.getString("nom");
+            Tape= B.getString("ape");
+            Tced=B.getString("ced");
+            Tcar=B.getString("car");
+            Tins=B.getString("ins");
+            Tpro=B.getString("pro");
+            //Toast.makeText(getContext(),"desde: "+Tnom,Toast.LENGTH_SHORT).show();
+        }
     }
 }

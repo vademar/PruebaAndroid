@@ -112,36 +112,29 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
                 Usuario.post(host.Rest_Registro, param, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        //temporal hasta q haga una mejor//
-                        try {
-                            Intent inte = new Intent(root,AcUsuario.class);
-                            inte.putExtra("nom",nombre);
-                            inte.putExtra("ape",apellido);
-                            inte.putExtra("ced",cedula);
-                            inte.putExtra("ins",institucion);
-                            inte.putExtra("car",cargo);
-                            inte.putExtra("pro",spiner.getSelectedItem().toString());
-                            root.startActivity(inte);
-                            Toast.makeText(root, response.getString("Registrado Con exito"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(root, "entro?", Toast.LENGTH_SHORT).show();
+                        Intent inte = new Intent(root,AcUsuario.class);
+                        inte.putExtra("nom",nombre);
+                        inte.putExtra("ape",apellido);
+                        inte.putExtra("ced",cedula);
+                        inte.putExtra("ins",institucion);
+                        inte.putExtra("car",cargo);
+                        inte.putExtra("pro",spiner.getSelectedItem().toString());
+                        finish();
+                        root.startActivity(inte);
+                        Toast.makeText(root,"Welcome: "+nombre, Toast.LENGTH_SHORT).show();
                     }
+                    @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         try {
                             String msn = errorResponse.getString("msn");
-                            Toast.makeText(root,"El CI ya existe ",Toast.LENGTH_SHORT).show();
-                            Intent inte = new Intent(root,Formulario.class);
-                            root.startActivity(inte);
+                            Toast.makeText(root,"lo Sentimos! "+msn,Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 });
-                finish();
             }else
-                Toast.makeText(this,"Solo Se Admiten Letras En Este Campo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Nombres y Apellidos No Pueden Tener Numeros", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -78,36 +78,6 @@ public class login extends AppCompatActivity {
         });
     }
 
-
-
-
-    public void InicioSesion(View view){
-
-        String cedula= Ci.getText().toString();
-        String contraseña= Pss.getText().toString();
-
-        String ci="123456";
-        String pss="samian";
-
-        if (cedula.length()== 0) {
-            Toast.makeText(this,"Ingrese Su CI", Toast.LENGTH_SHORT).show();
-        }
-        if (contraseña.length()== 0) {
-            Toast.makeText(this,"Ingrese Su Contraseña", Toast.LENGTH_SHORT).show();
-        }
-        if( contraseña.compareTo(pss) == 0){
-            if (cedula.compareTo(ci)==0){
-                Intent usuarios = new Intent(this,AcUsuario.class);
-                startActivity(usuarios);
-                finish();
-
-            }else
-                Toast.makeText(this, "Cedula De Identidad Incorrecta", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(this, "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void AlFormulario(View view){
         Intent formulario = new Intent(this,Formulario.class);
         startActivity(formulario);

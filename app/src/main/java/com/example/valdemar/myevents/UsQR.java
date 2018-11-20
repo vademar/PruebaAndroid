@@ -75,6 +75,7 @@ public class UsQR extends Fragment {
     private void LlenarDatos() {
         Intent inte = getActivity().getIntent();
         Intent Delogueo = getActivity().getIntent();
+        Intent integ = getActivity().getIntent();
         Bundle B = getActivity().getIntent().getExtras();
         if (B != null){
             NOMB.setText(B.getString("nom"));

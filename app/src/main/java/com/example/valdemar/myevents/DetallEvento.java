@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DetallEvento extends AppCompatActivity {
     private TextView nom,fechai,fechaf,horai,horaf,desc,cost, Fechas,lf,lho,lh,ldes,lcos,funi;
+    private String Tnom,Tape,Tced,Tpro,Tins,Tcar;
     private Typeface Letra;
     private String fuente;
     @Override
@@ -28,7 +32,13 @@ public class DetallEvento extends AppCompatActivity {
         lcos=(TextView)findViewById(R.id.LCos);
         lho=(TextView)findViewById(R.id.Lho);
         funi=(TextView)findViewById(R.id.FUni);
+
+        UserDatos();
+        EvenDatos();
         cambio();
+    }
+
+    private void EvenDatos() {
         Intent detalle = getIntent();
         Bundle B = getIntent().getExtras();
         if(B != null){
@@ -54,6 +64,19 @@ public class DetallEvento extends AppCompatActivity {
         }
     }
 
+    private void UserDatos() {
+        Intent Delogueo = getIntent();
+        Bundle A = getIntent().getExtras();
+        if (A != null){
+            Tnom = A.getString("Tnom");
+            Tape = A.getString("Tape");
+            Tced = A.getString("Tced");
+            Tpro = A.getString("Tpro");
+            Tins = A.getString("Tins");
+            Tcar = A.getString("Tcar");
+        }
+    }
+
     private void cambio() {
         fuente ="fuentes/PhItalic.ttf";
         this.Letra = Typeface.createFromAsset(getAssets(),fuente);
@@ -73,4 +96,8 @@ public class DetallEvento extends AppCompatActivity {
         funi.setTypeface(Letra);
     }
 
+    public void Registros(View view){
+        Toast.makeText(this, "Estas registrado: "+Tnom+";"+Tape+";"+Tced+";"+Tpro+";"+Tins+";"+Tcar, Toast.LENGTH_SHORT).show();
+
+    }
 }
