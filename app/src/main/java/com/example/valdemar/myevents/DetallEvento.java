@@ -12,12 +12,15 @@ import android.widget.Toast;
 public class DetallEvento extends AppCompatActivity {
     private TextView nom,fechai,fechaf,horai,horaf,desc,cost, Fechas,lf,lho,lh,ldes,lcos,funi;
     private String Tnom,Tape,Tced,Tpro,Tins,Tcar;
+    private String Enom,Efei,Efef,Ehoi,Ehof,Edesc,Ecost;
     private Typeface Letra;
     private String fuente;
+    private Button REG;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detall_evento);
+        REG =(Button)findViewById(R.id.btn_reg);
         nom=(TextView)findViewById(R.id.NOM);
         fechai=(TextView)findViewById(R.id.FEI);
         fechaf=(TextView)findViewById(R.id.FEF);
@@ -33,7 +36,6 @@ public class DetallEvento extends AppCompatActivity {
         lho=(TextView)findViewById(R.id.Lho);
         funi=(TextView)findViewById(R.id.FUni);
 
-        UserDatos();
         EvenDatos();
         cambio();
     }
@@ -61,19 +63,20 @@ public class DetallEvento extends AppCompatActivity {
                 desc.setText(B.getString("des"));
                 cost.setText(B.getString("cos"));
             }
-        }
-    }
+            Enom = B.getString("nom");
+            Efei = B.getString("fei");
+            Efef = B.getString("hof");
+            Ehoi = B.getString("hoi");
+            Ehof = B.getString("hof");
+            Edesc = B.getString("des");
+            Ecost = B.getString("cos");
 
-    private void UserDatos() {
-        Intent Delogueo = getIntent();
-        Bundle A = getIntent().getExtras();
-        if (A != null){
-            Tnom = A.getString("Tnom");
-            Tape = A.getString("Tape");
-            Tced = A.getString("Tced");
-            Tpro = A.getString("Tpro");
-            Tins = A.getString("Tins");
-            Tcar = A.getString("Tcar");
+            Tnom = B.getString("Tnom");
+            Tape = B.getString("Tape");
+            Tced = B.getString("Tced");
+            Tpro = B.getString("Tpro");
+            Tins = B.getString("Tins");
+            Tcar = B.getString("Tcar");
         }
     }
 
@@ -97,7 +100,7 @@ public class DetallEvento extends AppCompatActivity {
     }
 
     public void Registros(View view){
-        Toast.makeText(this, "Estas registrado: "+Tnom+";"+Tape+";"+Tced+";"+Tpro+";"+Tins+";"+Tcar, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Tnom+" "+Tape+"\n"+Tced+"\n"+Tpro+"\n"+Tins+"\n"+Tcar+"Se Esta Registrando en: "+Enom, Toast.LENGTH_LONG).show();
 
     }
 }

@@ -8,4 +8,5 @@ public class host {
     static public String Rest_Profesiones = Host + "/profesiones";
     static public String Rest_Eventi = Host + "/Events";
     static public String Rest_login = Host + "/login/";
+    static public String Rest_Regis = Host + "/regis";
 }
