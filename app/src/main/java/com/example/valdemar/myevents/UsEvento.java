@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -64,6 +65,7 @@ public class UsEvento extends Fragment implements AdapterView.OnItemClickListene
                         LISTINFO.add(evento);
                     }
                     ADAPTER= new MyAdapter(getContext(),LISTINFO);
+                    Collections.reverse(LISTINFO);
                     LIST.setAdapter(ADAPTER);
                 }catch (JSONException e) {
                     e.printStackTrace();

@@ -35,12 +35,14 @@
 
     <TextView
         android:id="@+id/VfechaI"
-        android:layout_width="110dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="5dp"
-        android:textAlignment="center"
+        android:textAlignment="textEnd"
         android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/a1"
         app:layout_constraintStart_toEndOf="@+id/Descrip"
         app:layout_constraintTop_toBottomOf="@+id/VF" />
 
@@ -90,12 +92,14 @@
 
     <TextView
         android:id="@+id/VhoraI"
-        android:layout_width="110dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="5dp"
-        android:textAlignment="center"
+        android:textAlignment="textEnd"
         android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/a"
         app:layout_constraintStart_toEndOf="@+id/Descrip"
         app:layout_constraintTop_toBottomOf="@+id/VH" />
 
@@ -115,48 +119,54 @@
 
     <TextView
         android:id="@+id/a1"
-        android:layout_width="9dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:text="A"
-        app:layout_constraintEnd_toStartOf="@+id/VfechaF"
-        app:layout_constraintStart_toEndOf="@+id/VfechaI"
+        android:text=" a "
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Descrip"
         app:layout_constraintTop_toBottomOf="@+id/VF" />
 
     <TextView
         android:id="@+id/VfechaF"
-        android:layout_width="110dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="5dp"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/a1"
         app:layout_constraintTop_toBottomOf="@+id/VF" />
 
     <TextView
         android:id="@+id/a"
-        android:layout_width="9dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:text="A"
-        app:layout_constraintEnd_toStartOf="@+id/VhoraF"
-        app:layout_constraintStart_toEndOf="@+id/VhoraI"
+        android:text=" a "
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Descrip"
         app:layout_constraintTop_toBottomOf="@+id/VH" />
 
     <TextView
         android:id="@+id/VhoraF"
-        android:layout_width="110dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="5dp"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/a"
         app:layout_constraintTop_toBottomOf="@+id/VH" />
 
 </android.support.constraint.ConstraintLayout>

@@ -38,42 +38,43 @@ public class login extends AppCompatActivity {
     public void logeeo(View view){
         String CI= Ci.getText().toString();
         String PSS= Pss.getText().toString();
-
+        if(CI.length()==0){
+            Toast.makeText(root, "Ingrese su Cedula de Identidad", Toast.LENGTH_SHORT).show();
+        }else if(PSS.length()==0){
+            Toast.makeText(root, "Ingrese su Contraseña", Toast.LENGTH_SHORT).show();
+        }
         AsyncHttpClient logue = new AsyncHttpClient();
         logue.get(host.Rest_login+CI+"="+PSS, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     JSONObject Login = response.getJSONObject("usuarios");
-                    //JSONObject token = response.getJSONObject("token");
-
-                        //String signupDate= Login.optString("signupDate");
-                        //String id = Login.optString("id");
-                        String nombre = Login.optString("nombre");
-                        String apellido = Login.optString("apellido");
-                        String ci = Login.optString("ci");
-                        String profesion = Login.optString("profesion");
-                        String institucion = Login.optString("institucion");
-                        String cargo = Login.optString("cargo");
-                        //String password = Login.optString("password");
-                        Toast.makeText(getApplicationContext(),"Welcome: "+nombre, Toast.LENGTH_SHORT).show();
-                        Intent Delogueo = new Intent(root, AcUsuario.class);
-                        Delogueo.putExtra("nom",nombre);
-                        Delogueo.putExtra("ape",apellido);
-                        Delogueo.putExtra("ced",ci);
-                        Delogueo.putExtra("pro",profesion);
-                        Delogueo.putExtra("ins",institucion);
-                        Delogueo.putExtra("car",cargo);
-                        startActivity(Delogueo);
-                        finish();
+                    //String signupDate= Login.optString("signupDate");
+                    //String id = Login.optString("id");
+                    String nombre = Login.optString("nombre");
+                    String apellido = Login.optString("apellido");
+                    String ci = Login.optString("ci");
+                    String profesion = Login.optString("profesion");
+                    String institucion = Login.optString("institucion");
+                    String cargo = Login.optString("cargo");
+                    //String password = Login.optString("password");
+                    Toast.makeText(getApplicationContext(),"Welcome: "+nombre, Toast.LENGTH_SHORT).show();
+                    Intent Delogueo = new Intent(root, AcUsuario.class);
+                    Delogueo.putExtra("nom",nombre);
+                    Delogueo.putExtra("ape",apellido);
+                    Delogueo.putExtra("ced",ci);
+                    Delogueo.putExtra("pro",profesion);
+                    Delogueo.putExtra("ins",institucion);
+                    Delogueo.putExtra("car",cargo);
+                    startActivity(Delogueo);
+                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)  {
-                Toast toast1 = Toast.makeText(getApplicationContext(), "verify your emil or password", Toast.LENGTH_SHORT);
-                toast1.show();
+                Toast.makeText(root,"Verifique Sus Datos", Toast.LENGTH_SHORT).show();
             }
         });
     }

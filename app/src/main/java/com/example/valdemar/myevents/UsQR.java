@@ -2,6 +2,7 @@ package com.example.valdemar.myevents;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,17 +18,29 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 public class UsQR extends Fragment {
     private View V;
     private TextView NOMB,APEL,CEDU,PROF,CARG,INST;
-    private Button CREA;
+    private Button imprime;
     private ImageView IMG;
     private String nomb,apel,cedu,prof,inst,carg, DATOS;
-    private ArrayList<User> LISTINFO;
+    private String[]header = {"Id","Nombre","Apellido"};
+    private String shorText; //= "hola";
+    private String longText; //= "donde va la posicion de mi QR";
+    private TemplatePDF templatePDF;
+    private Bitmap bitmap;
+    private ByteArrayOutputStream stream;
+    private Image imge;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,36 +52,26 @@ public class UsQR extends Fragment {
         INST = (TextView)V.findViewById(R.id.TVEINS);
         PROF = (TextView)V.findViewById(R.id.TVEPROF);
 
-        CREA = (Button)V.findViewById(R.id.button);
+        imprime =(Button)V.findViewById(R.id.Imprimir);
         IMG = (ImageView)V.findViewById(R.id.imageView3);
-
-
-        CREA.setOnClickListener(new View.OnClickListener() {
+        GenerateQR();
+        imprime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LlenarDatos();
-                nomb = NOMB.getText().toString();
-                apel = APEL.getText().toString();
-                cedu = CEDU.getText().toString();
-                carg = CARG.getText().toString();
-                inst = INST.getText().toString();
-                prof = PROF.getText().toString();
-                DATOS = nomb+"; "+apel+"; "+cedu+"; "+carg+"; "+inst+"; "+prof;
-                if(nomb!=null){
-                    try {
-                        MultiFormatWriter multi = new MultiFormatWriter();
-                        BitMatrix Bma = multi.encode(DATOS, BarcodeFormat.QR_CODE,600,600);
-                        BarcodeEncoder barcodeEncoder = new BarcodeEncoder ();
-                        Bitmap bitmap = barcodeEncoder.createBitmap(Bma);
-                        IMG.setImageBitmap (bitmap);
-                        Toast.makeText(getContext(),"Datos: "+DATOS, Toast.LENGTH_SHORT).show();
-                    } catch (WriterException e) {
-                        e.printStackTrace();
-                    }
-                }
-
+                templatePDF.viewPdF();
             }
         });
+
+        templatePDF = new TemplatePDF(getContext());
+        templatePDF.openDocument();
+        templatePDF.addIMG(imge);
+        //templatePDF.addMetaData("clientes", "Evento", "marines");
+        //templatePDF.addTitles("Eventos","Usuario","24/11/18");
+        //templatePDF.addParagraph(shorText);
+        templatePDF.addParagraph(longText);
+        //templatePDF.createTable(header,getClients());
+        templatePDF.closeDocument();
+
         LlenarDatos();
         return  V;
     }
@@ -85,5 +88,57 @@ public class UsQR extends Fragment {
             INST.setText(B.getString("ins"));
             PROF.setText(B.getString("pro"));
         }
+    }
+
+    private void GenerateQR(){
+        LlenarDatos();
+        nomb = NOMB.getText().toString();
+        apel = APEL.getText().toString();
+        cedu = CEDU.getText().toString();
+        carg = CARG.getText().toString();
+        inst = INST.getText().toString();
+        prof = PROF.getText().toString();
+        longText = "Nombre: "+nomb+" "+apel+"\n"+
+                "Cedula: "+cedu+"\n"+
+                "Profesion: "+prof+"\n"+
+                "Institucion: "+inst+"\n"+
+                "Cargo: "+carg;
+        DATOS = nomb+"; "+apel+"; "+cedu+"; "+carg+"; "+inst+"; "+prof;
+        if(nomb!=null){
+            try {
+                MultiFormatWriter multi = new MultiFormatWriter();
+                BitMatrix Bma = multi.encode(DATOS, BarcodeFormat.QR_CODE,600,600);
+                BarcodeEncoder barcodeEncoder = new BarcodeEncoder ();
+                bitmap = barcodeEncoder.createBitmap(Bma);
+                stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] bitmapData = stream.toByteArray();
+                imge = Image.getInstance(bitmapData);
+                imge.scaleAbsolute(100,100);
+                imge.setAlignment(Element.ALIGN_LEFT);
+                IMG.setImageBitmap (bitmap);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (BadElementException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private ArrayList<String[]>getClients(){
+        ArrayList<String[]> rows = new ArrayList<>();
+        /*rows.add(new String[]{"Nombres",nomb,apel});
+        rows.add(new String[]{"Cedula",cedu,cedu});
+        rows.add(new String[]{"Profesion",prof,prof});
+        rows.add(new String[]{"Institucion",inst,inst});
+        rows.add(new String[]{"Cargo",carg,carg});*/
+        rows.add(new String[]{"1","juan","quintana"});
+        rows.add(new String[]{"2","juan","quintana"});
+        rows.add(new String[]{"3","juan","quintana"});
+        rows.add(new String[]{"4","juan","quintana"});
+        rows.add(new String[]{"5","juan","quintana"});
+        return rows;
     }
 }
