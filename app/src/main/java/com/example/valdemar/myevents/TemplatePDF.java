@@ -1,11 +1,15 @@
 package com.example.valdemar.myevents;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
@@ -111,6 +115,7 @@ public class TemplatePDF {
             paragraph.setFont(fText);
             PdfPTable pdfPTable =  new PdfPTable(header.length);
             pdfPTable.setWidthPercentage(100);
+            pdfPTable.setSpacingBefore(20);
             PdfPCell pdfPCell;
             int indexC=0;
             while (indexC<header.length){
@@ -121,7 +126,7 @@ public class TemplatePDF {
             }
             for(int indexR=0; indexR<clients.size(); indexR++){
                 String[]row = clients.get(indexR);
-                for(indexC=0; indexC<clients.size();indexC++){
+                for(indexC=0; indexC<header.length;indexC++){
                     pdfPCell = new PdfPCell(new Phrase(row[indexC]));
                     pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
                     pdfPCell.setFixedHeight(40);
@@ -134,10 +139,73 @@ public class TemplatePDF {
             Log.e("createTable",e.toString());
         }
     }
+    public void Tablas(Image img,String nomb,String apel,String cedu,String carg,String inst,String prof){
+        try {
+            // Este codigo genera una tabla de 3 columnas
+            PdfPTable table = new PdfPTable(2);
+            table.setWidths(new float[] {12, 20});
+            // addCell() agrega una celda a la tabla, el cambio de fila
+            // ocurre automaticamente al llenar la fila
+
+            table.setWidthPercentage(32);
+
+            // Si desea crear una celda de mas de una columna
+            // Cree un objecto Cell y cambie su propiedad span
+            PdfPCell titulo = new PdfPCell(new Paragraph("Credencial Para Eventos",fText));
+            PdfPCell imagen = new PdfPCell(img);
+            imagen.setFixedHeight(102);
+            // Indicamos cuantas columnas ocupa la celda
+            imagen.setColspan(2);
+            imagen.setHorizontalAlignment(Element.ALIGN_CENTER);
+            imagen.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+            titulo.setColspan(2);
+            titulo.setHorizontalAlignment(Element.ALIGN_CENTER);
+            titulo.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            titulo.setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+            table.addCell(titulo);
+            table.addCell(imagen);
+
+            table.addCell(" Nombre");
+            table.addCell(nomb+" "+ apel);
+
+            table.addCell(" Cedula");
+            table.addCell(cedu);
+
+            table.addCell(" Profesión");
+            table.addCell(prof);
+
+            table.addCell(" Institución");
+            table.addCell(inst);
+
+            table.addCell(" Cargo");
+            table.addCell(carg);
+
+            // Agregamos la tabla al documento
+            document.add(table);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+    }
     public void viewPdF(){
         Intent intent = new Intent(context,ViewPDFActivity.class);
         intent.putExtra("path",pdfFile.getAbsolutePath());
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+    public void appviewPdF(Activity activity){
+        if(pdfFile.exists()){
+            Uri uri = Uri.fromFile(pdfFile);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri,"application/pdf");
+            try{
+                activity.startActivity(intent);
+            }catch (ActivityNotFoundException e){
+                activity.startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=com.adobe.reader")));
+                Toast.makeText(context,"No Cuentas Con Una Aplicacion Para Abrir este Formato",Toast.LENGTH_SHORT).show();
+            }
+        }else
+            Toast.makeText(activity.getApplicationContext(),"no se encontro el archivo",Toast.LENGTH_SHORT).show();
     }
 }

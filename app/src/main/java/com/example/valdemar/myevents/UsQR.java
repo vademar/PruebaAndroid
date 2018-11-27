@@ -1,5 +1,7 @@
 package com.example.valdemar.myevents;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +36,7 @@ public class UsQR extends Fragment {
     private Button imprime;
     private ImageView IMG;
     private String nomb,apel,cedu,prof,inst,carg, DATOS;
-    private String[]header = {"Id","Nombre","Apellido"};
+    private String[]header = {"id","nombre","apellido"};
     private String shorText; //= "hola";
     private String longText; //= "donde va la posicion de mi QR";
     private TemplatePDF templatePDF;
@@ -58,17 +60,19 @@ public class UsQR extends Fragment {
         imprime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                templatePDF.viewPdF();
+                //templatePDF.viewPdF();
+                templatePDF.appviewPdF(getActivity());
             }
         });
 
         templatePDF = new TemplatePDF(getContext());
         templatePDF.openDocument();
-        templatePDF.addIMG(imge);
+        //templatePDF.addIMG(imge);
         //templatePDF.addMetaData("clientes", "Evento", "marines");
         //templatePDF.addTitles("Eventos","Usuario","24/11/18");
         //templatePDF.addParagraph(shorText);
-        templatePDF.addParagraph(longText);
+        //templatePDF.addParagraph(longText);
+        templatePDF.Tablas(imge,nomb,apel,cedu,carg,inst,prof);
         //templatePDF.createTable(header,getClients());
         templatePDF.closeDocument();
 
@@ -98,11 +102,6 @@ public class UsQR extends Fragment {
         carg = CARG.getText().toString();
         inst = INST.getText().toString();
         prof = PROF.getText().toString();
-        longText = "Nombre: "+nomb+" "+apel+"\n"+
-                "Cedula: "+cedu+"\n"+
-                "Profesion: "+prof+"\n"+
-                "Institucion: "+inst+"\n"+
-                "Cargo: "+carg;
         DATOS = nomb+"; "+apel+"; "+cedu+"; "+carg+"; "+inst+"; "+prof;
         if(nomb!=null){
             try {
@@ -129,11 +128,6 @@ public class UsQR extends Fragment {
 
     private ArrayList<String[]>getClients(){
         ArrayList<String[]> rows = new ArrayList<>();
-        /*rows.add(new String[]{"Nombres",nomb,apel});
-        rows.add(new String[]{"Cedula",cedu,cedu});
-        rows.add(new String[]{"Profesion",prof,prof});
-        rows.add(new String[]{"Institucion",inst,inst});
-        rows.add(new String[]{"Cargo",carg,carg});*/
         rows.add(new String[]{"1","juan","quintana"});
         rows.add(new String[]{"2","juan","quintana"});
         rows.add(new String[]{"3","juan","quintana"});
