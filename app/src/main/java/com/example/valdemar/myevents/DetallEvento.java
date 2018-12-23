@@ -20,7 +20,6 @@ public class DetallEvento extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detall_evento);
-        REG =(Button)findViewById(R.id.btn_reg);
         nom=(TextView)findViewById(R.id.NOM);
         fechai=(TextView)findViewById(R.id.FEI);
         fechaf=(TextView)findViewById(R.id.FEF);

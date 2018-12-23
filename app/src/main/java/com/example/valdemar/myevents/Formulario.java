@@ -97,45 +97,49 @@ public class Formulario extends AppCompatActivity implements View.OnClickListene
         }
 
         if(nombre.length()!=0 && apellido.length()!=0 && cedula.length()!=0 && contraseña.length()!=0 && institucion.length()!=0){
-            if(nombre.matches("[aA-zZ,ñÑ, ]*") && apellido.matches("[aA-zZ,ñÑ, ]*")){
-
-                AsyncHttpClient Usuario = new AsyncHttpClient();
-                RequestParams param = new RequestParams();
-                param.put("nombre",nombre);
-                param.put("apellido",apellido);
-                param.put("profesion", spiner.getSelectedItem().toString());
-                param.put("institucion", institucion);
-                param.put("cargo",cargo);
-                param.put("ci",cedula);
-                param.put("password",contraseña);
-
-                Usuario.post(host.Rest_Registro, param, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Intent inte = new Intent(root,AcUsuario.class);
-                        inte.putExtra("nom",nombre);
-                        inte.putExtra("ape",apellido);
-                        inte.putExtra("ced",cedula);
-                        inte.putExtra("ins",institucion);
-                        inte.putExtra("car",cargo);
-                        inte.putExtra("pro",spiner.getSelectedItem().toString());
-                        finish();
-                        root.startActivity(inte);
-                        Toast.makeText(root,"Welcome: "+nombre, Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        try {
-                            String msn = errorResponse.getString("msn");
-                            Toast.makeText(root,"lo Sentimos! "+msn,Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+            if(nombre.matches("[aA-zZñÑ áéíóú]*") && apellido.matches("[aA-zZñÑ áéíóú]*") && institucion.matches("[aA-zZñÑ áéíóú]*")){
+                if(cedula.matches("[A-Z0-9-]{7,11}")){
+                    misdatos();
+                }else
+                    Toast.makeText(root, "el Ci no puede contener letras Min y Carateres", Toast.LENGTH_SHORT).show();
             }else
-                Toast.makeText(this,"Nombres y Apellidos No Pueden Tener Numeros", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Nombres, Apellidos e Institución No Pueden Tener Numeros", Toast.LENGTH_SHORT).show();
         }
     }
+    public void misdatos(){
+        AsyncHttpClient Usuario = new AsyncHttpClient();
+        RequestParams param = new RequestParams();
+        param.put("nombre", nombre);
+        param.put("apellido", apellido);
+        param.put("profesion", spiner.getSelectedItem().toString());
+        param.put("institucion", institucion);
+        param.put("cargo", cargo);
+        param.put("ci", cedula);
+        param.put("password", contraseña);
 
+        Usuario.post(host.Rest_Registro, param, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Intent inte = new Intent(root, AcUsuario.class);
+                inte.putExtra("nom", nombre);
+                inte.putExtra("ape", apellido);
+                inte.putExtra("ced", cedula);
+                inte.putExtra("ins", institucion);
+                inte.putExtra("car", cargo);
+                inte.putExtra("pro", spiner.getSelectedItem().toString());
+                finish();
+                root.startActivity(inte);
+                Toast.makeText(root, "Welcome: " + nombre, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    String msn = errorResponse.getString("msn");
+                    Toast.makeText(root, "lo Sentimos! " + msn, Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

@@ -41,21 +41,22 @@ public class TemplatePDF {
     private Font fSubTitle =  new Font(Font.FontFamily.TIMES_ROMAN,18,Font.BOLD);
     private Font fText =  new Font(Font.FontFamily.TIMES_ROMAN,12,Font.BOLD);
     private Font fHighText =  new Font(Font.FontFamily.TIMES_ROMAN,15,Font.BOLD);
-
+    private String Titulo;
     //para compartir el contexto\\
     public TemplatePDF(Context context) {
         this.context = context;
     }
 
-    private void createFile(){
+    private void createFile(String nombre){
+        Titulo = nombre+".pdf";
         File folder = new File(Environment.getExternalStorageDirectory().toString(),"Sedes");
         if(!folder.exists())
             folder.mkdirs();
-        pdfFile = new File(folder,"MyQr.pdf");
+        pdfFile = new File(folder,Titulo);
     }
 
-    public void openDocument(){
-        createFile();
+    public void openDocument(String nombre){
+        createFile(nombre);
         try{
             document = new Document(PageSize.A4);
             pdfWriter = PdfWriter.getInstance(document,new FileOutputStream(pdfFile));
@@ -69,92 +70,15 @@ public class TemplatePDF {
         document.close();
     }
 
-    public void addMetaData(String title, String subject, String author){
-        document.addTitle(title);
-        document.addSubject(subject);
-        document.addAuthor(author);
-    }
-
-    private void addChildP(Paragraph childParagraph){
-        childParagraph.setAlignment(Element.ALIGN_CENTER);
-        paragraph.add(childParagraph);
-    }
-
-    public void addTitles(String title, String subTitle, String date){
-        try{
-            paragraph = new Paragraph();
-            addChildP(new Paragraph(title,ftitle));
-            addChildP(new Paragraph(subTitle,fSubTitle));
-            addChildP(new Paragraph("Generado"+date,fHighText));
-            paragraph.setSpacingAfter(30);
-            document.add(paragraph);
-        }catch (Exception e){
-            Log.e("addTitles",e.toString());
-        }
-    }
-    public void addIMG(Image img){
-        try {
-            document.add(img);
-        }catch (Exception e){
-            Log.e("addIMG",e.toString());
-        }
-    }
-    public void addParagraph(String text){
-        try{
-            paragraph = new Paragraph(text,fText);
-            paragraph.setSpacingAfter(5);
-            paragraph.setSpacingBefore(5);
-            document.add(paragraph);
-        }catch (Exception e){
-            Log.e("addParagraph",e.toString());
-        }
-    }
-    public void createTable(String[]header, ArrayList<String[]>clients){
-        try{
-            paragraph =  new Paragraph();
-            paragraph.setFont(fText);
-            PdfPTable pdfPTable =  new PdfPTable(header.length);
-            pdfPTable.setWidthPercentage(100);
-            pdfPTable.setSpacingBefore(20);
-            PdfPCell pdfPCell;
-            int indexC=0;
-            while (indexC<header.length){
-                pdfPCell = new PdfPCell(new Phrase(header[indexC++],fSubTitle));
-                pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                pdfPCell.setBackgroundColor(BaseColor.BLUE);
-                pdfPTable.addCell(pdfPCell);
-            }
-            for(int indexR=0; indexR<clients.size(); indexR++){
-                String[]row = clients.get(indexR);
-                for(indexC=0; indexC<header.length;indexC++){
-                    pdfPCell = new PdfPCell(new Phrase(row[indexC]));
-                    pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    pdfPCell.setFixedHeight(40);
-                    pdfPTable.addCell(pdfPCell);
-                }
-            }
-            paragraph.add(pdfPTable);
-            document.add(paragraph);
-        }catch (Exception e){
-            Log.e("createTable",e.toString());
-        }
-    }
     public void Tablas(Image img,String nomb,String apel,String cedu,String carg,String inst,String prof){
         try {
-            // Este codigo genera una tabla de 3 columnas
             PdfPTable table = new PdfPTable(2);
             table.setWidths(new float[] {12, 20});
-            // addCell() agrega una celda a la tabla, el cambio de fila
-            // ocurre automaticamente al llenar la fila
-
             table.setWidthPercentage(32);
 
-            // Si desea crear una celda de mas de una columna
-            // Cree un objecto Cell y cambie su propiedad span
             PdfPCell titulo = new PdfPCell(new Paragraph("Credencial Para Eventos",fText));
             PdfPCell imagen = new PdfPCell(img);
             imagen.setFixedHeight(102);
-            // Indicamos cuantas columnas ocupa la celda
             imagen.setColspan(2);
             imagen.setHorizontalAlignment(Element.ALIGN_CENTER);
             imagen.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -187,12 +111,6 @@ public class TemplatePDF {
         } catch (DocumentException e) {
             e.printStackTrace();
         }
-    }
-    public void viewPdF(){
-        Intent intent = new Intent(context,ViewPDFActivity.class);
-        intent.putExtra("path",pdfFile.getAbsolutePath());
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
     }
     public void appviewPdF(Activity activity){
         if(pdfFile.exists()){

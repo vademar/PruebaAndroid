@@ -66,7 +66,7 @@ public class UsQR extends Fragment {
         });
 
         templatePDF = new TemplatePDF(getContext());
-        templatePDF.openDocument();
+        templatePDF.openDocument(nomb);
         //templatePDF.addIMG(imge);
         //templatePDF.addMetaData("clientes", "Evento", "marines");
         //templatePDF.addTitles("Eventos","Usuario","24/11/18");
@@ -102,7 +102,11 @@ public class UsQR extends Fragment {
         carg = CARG.getText().toString();
         inst = INST.getText().toString();
         prof = PROF.getText().toString();
-        DATOS = nomb+"; "+apel+"; "+cedu+"; "+carg+"; "+inst+"; "+prof;
+        DATOS = "Nombre Completo: "+nomb+" "+apel+"\n"+
+                "Cedula de Identidad: "+cedu+"\n"+
+                "Cargo: "+carg+"\n"+
+                "Institución: "+inst+"\n"+
+                "Profesión: "+prof;
         if(nomb!=null){
             try {
                 MultiFormatWriter multi = new MultiFormatWriter();
