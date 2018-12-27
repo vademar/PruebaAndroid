@@ -67,13 +67,7 @@ public class UsQR extends Fragment {
 
         templatePDF = new TemplatePDF(getContext());
         templatePDF.openDocument(nomb);
-        //templatePDF.addIMG(imge);
-        //templatePDF.addMetaData("clientes", "Evento", "marines");
-        //templatePDF.addTitles("Eventos","Usuario","24/11/18");
-        //templatePDF.addParagraph(shorText);
-        //templatePDF.addParagraph(longText);
         templatePDF.Tablas(imge,nomb,apel,cedu,carg,inst,prof);
-        //templatePDF.createTable(header,getClients());
         templatePDF.closeDocument();
 
         LlenarDatos();

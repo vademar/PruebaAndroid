@@ -61,7 +61,7 @@ public class AcUsuario extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "BIEN VENIDO A LA APLICACION DE EVENTOS VISITA NUESTRA PAGINA OFICIAL EN FACEBOOK", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Calle Chayanta No. 779 telf: 2 6227449", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
